@@ -2,7 +2,11 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.sites.models import Site
 from django.contrib.auth import models as auth_models
-from django.utils.encoding import python_2_unicode_compatible
+try:
+    from django.utils.encoding import python_2_unicode_compatible
+except ImportError:
+    python_2_unicode_compatible = lambda x:x
+
 
 
 @python_2_unicode_compatible

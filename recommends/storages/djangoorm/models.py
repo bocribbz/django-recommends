@@ -2,7 +2,10 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.contenttypes import generic
 from .managers import RecommendsManager, SimilarityManager, RecommendationManager
-from django.utils.encoding import python_2_unicode_compatible
+try:
+    from django.utils.encoding import python_2_unicode_compatible
+except ImportError:
+    python_2_unicode_compatible = lambda x:x
 
 
 @python_2_unicode_compatible
