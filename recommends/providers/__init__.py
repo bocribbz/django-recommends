@@ -86,6 +86,7 @@ class RecommendationProvider(object):
     """
     rate_signals = ['django.db.models.signals.pre_delete']
     algorithm = GhettoAlgorithm()
+    min_score = None
 
     def __init__(self):
         if not getattr(self, 'storage', False):
@@ -142,6 +143,8 @@ class RecommendationProvider(object):
                 for rating in self.get_ratings(item):
                     user = self.get_rating_user(rating)
                     score = self.get_rating_score(rating)
+                    if self.min_score is not None and self.min_score > score:
+                        continue
                     site = self.get_rating_site(rating)
                     if isinstance(site, Site):
                         site_id = site.id
